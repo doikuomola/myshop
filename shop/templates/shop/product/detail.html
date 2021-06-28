@@ -1,5 +1,5 @@
 {% extends 'shop/base.html' %}
-
+{% load static %}
 
 {% block title %}
     {{ product.name }}
@@ -7,8 +7,16 @@
 
 
 {% block content %}
-    <div class="product-detail">
+<style>
+    div.row.product-detail div.col-8 img {
+	width: 300px;
+}
+</style>
+<div class="row product-detail">
+    <div class="col-8 text-center">
         <img src="{% if product.image %} {{ product.image.url }} {% else %} {% static 'no_image.png' %} {% endif %}" alt="">
+    </div>
+    <div class="col-4">
         <h2>{{ product.name }}</h2>
         <h4>
             <a href="{{ product.category.get_absolute_url }}">
@@ -16,8 +24,14 @@
             </a>
         </h4>
         <p class="price">&#8358;{{ product.price }}</p>
+        <form action="{% url 'cart:cart_add' product.id %}" method="post">
+            {{ cart_product_form }}
+            {% csrf_token %}
+            <input type="submit" value="Add to cart">
+        </form>
         <p>{{ product.description|linebreaks }}</p>
     </div>
+</div>
 {% endblock content %}
     
     
