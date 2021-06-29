@@ -15,7 +15,7 @@ class Cart(object):
         if not cart:
             # save an empty cart in the session
             cart = self.session[settings.CART_SESSION_ID] = {}
-            self.cart = cart
+        self.cart = cart
 
     def add(self, product, quantity=1, override_quantity=False):
         """
@@ -29,7 +29,7 @@ class Cart(object):
             self.cart[product_id]['quantity'] = quantity
         else:
             self.cart[product_id]['quantity'] += quantity
-            self.save()
+        self.save()
 
     def save(self):
         # mark the session as "modified" to make sure it gets saved
@@ -42,7 +42,7 @@ class Cart(object):
         product_id = str(product.id)
         if product_id in self.cart:
             del self.cart[product_id]
-            self.save()
+        self.save()
 
     def __iter__(self):
         """
