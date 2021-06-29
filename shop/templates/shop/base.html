@@ -19,20 +19,20 @@
             height: 120px;
             display: block
         }
-    
+
         div.cart {
             background: lightgrey;
             padding: 10px;
             display: flex;
             justify-content: end;
         }
-    
-    
+
+
         div.row div.item p,
         div.item a {
             text-align: center;
         }
-    
+
         div.item {
             border: 1px solid cornflowerblue;
             margin-right: 10px;
@@ -48,23 +48,31 @@
         </div>
     </div>
     <div class="container">
-        <div id="subheader">
-            <div class="cart">
-                Your cart is empty.
-            </div>
+        <div class="cart">
+            {% with total_items=cart|length %}
+            {% if total_items > 0 %}
+            Your cart: &nbsp;
+            <a href="{% url 'cart:cart_detail' %}">
+                {{ total_items }} item{{ total_items|pluralize }},
+                &#8358;{{ cart.get_total_price }}
+            </a>
+            {% else %}
+            Your cart is empty.
+            {% endif %}
+            {% endwith %}
         </div>
     </div>
-   
+
     <div class="container">
         <div id="content">
             {% block content %}
             {% endblock %}
         </div>
     </div>
-    
-    
 
-   
+
+
+
 
 
 
