@@ -1,3 +1,4 @@
+import braintree
 
 import os
 from pathlib import Path
@@ -31,6 +32,7 @@ INSTALLED_APPS = [
     'shop',
     'cart',
     'orders',
+    'payment',
 
     'crispy_forms',
 ]
@@ -128,3 +130,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CART_SESSION_ID = 'cart'
+
+# Braintree settings
+BRAINTREE_MERCHANT_ID = 'XXX' # Merchant ID
+BRAINTREE_PUBLIC_KEY = 'XXX' # Public Key
+BRAINTREE_PRIVATE_KEY = 'XXX' # Private key
+BRAINTREE_CONF = braintree.Configuration(
+braintree.Environment.Sandbox,
+BRAINTREE_MERCHANT_ID,
+BRAINTREE_PUBLIC_KEY,
+BRAINTREE_PRIVATE_KEY
+)
